@@ -6,5 +6,14 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  #
+  # Creates hash with HTTP Basic Auth token
+  #
+  def headers_for_http_auth(user, password)
+    { 'HTTP_AUTHORIZATION' => http_basic_auth_token(user, password) }
+  end
+
+  def http_basic_auth_token(user, password)
+    ActionController::HttpAuthentication::Basic.encode_credentials(user, password)
+  end
 end
