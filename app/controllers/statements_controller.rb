@@ -7,6 +7,7 @@ class StatementsController < ApplicationController
   # GET /statements
   def index
     @statements = Statement.all
+    authorize @statements
     render json: @statements
   end
 
@@ -18,6 +19,7 @@ class StatementsController < ApplicationController
   # POST /statements
   def create
     @statement = Statement.new(statement_params)
+    authorize @statement
 
     if @statement.save
       render json: @statement, status: :created, location: @statement
@@ -44,6 +46,7 @@ class StatementsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_statement
       @statement = Statement.find(params[:id])
+      authorize @statement
     end
 
     # Only allow a trusted parameter "white list" through.
