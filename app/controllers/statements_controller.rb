@@ -4,12 +4,10 @@ class StatementsController < ApplicationController
   before_action :authenticate_user_by_http_basic_auth!
   before_action :set_statement, only: [:show, :update, :destroy]
 
-  # use only json
-  respond_to :json
-
   # GET /statements
   def index
     @statements = Statement.all
+    render json: @statements
   end
 
   # GET /statements/1
