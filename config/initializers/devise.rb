@@ -64,7 +64,7 @@ Devise.setup do |config|
   # given strategies, for example, `config.http_authenticatable = [:database]` will
   # enable it only for database authentication. The supported strategies are:
   # :database      = Support basic authentication with authentication key + password
-  # config.http_authenticatable = false
+  config.http_authenticatable = true
 
   # If 401 status code should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
@@ -148,7 +148,7 @@ Devise.setup do |config|
 
   # ==> Configuration for :validatable
   # Range for password length.
-  config.password_length = 6..128
+  config.password_length = 4..128
 
   # Email regex used to validate email formats. It simply asserts that
   # one (and only one) @ exists in the given string. This is mainly
