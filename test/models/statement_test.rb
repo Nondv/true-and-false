@@ -8,6 +8,7 @@ class StatementTest < ActiveSupport::TestCase
                             ru_explanation: :text,
                             value: :boolean,
                             points: :integer,
+                            proof: :string,
                             created_at: :datetime,
                             updated_at: :datetime }
 
