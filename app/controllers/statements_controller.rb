@@ -46,6 +46,7 @@ class StatementsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def statement_params
-      params.fetch(:statement, {})
+      white_list = [:ru, :ru_explanation, :points, :value]
+      params.require(:statement).permit(*white_list)
     end
 end
