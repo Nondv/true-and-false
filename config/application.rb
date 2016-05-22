@@ -17,6 +17,8 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module TrueAndFalse
+  VERSION = '0.1.0'.freeze
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -28,6 +30,6 @@ module TrueAndFalse
     config.api_only = true
 
     # return code 403 when user not authorized for something
-    config.action_dispatch.rescue_responses["Pundit::NotAuthorizedError"] = :forbidden
+    config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
   end
 end
