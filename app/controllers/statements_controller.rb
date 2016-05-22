@@ -50,15 +50,16 @@ class StatementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_statement
-      @statement = Statement.find(params[:id])
-      authorize @statement
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def statement_params
-      white_list = [:ru, :ru_explanation, :points, :value]
-      params.require(:statement).permit(*white_list)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_statement
+    @statement = Statement.find(params[:id])
+    authorize @statement
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def statement_params
+    white_list = [:ru, :ru_explanation, :points, :value]
+    params.require(:statement).permit(*white_list)
+  end
 end
