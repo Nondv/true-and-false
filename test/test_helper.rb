@@ -6,6 +6,30 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def get_as(user, path, params = {})
+    make_request_with_auth(:get, user, path, params)
+  end
+
+  def patch_as(user, path, params = {})
+    make_request_with_auth(:patch, user, path, params)
+  end
+
+  def post_as(user, path, params = {})
+    make_request_with_auth(:post, user, path, params)
+  end
+
+  def delete_as(user, path, params = {})
+    make_request_with_auth(:delete, user, path, params)
+  end
+
+  # Makes request with HTTP Basic Auth headers
+  def make_request_with_auth(request, user, path, params = {})
+    params[:headers] ||= {}
+    params[:headers] = params[:headers].merge(headers_for_http_auth(user.email, '0000'))
+
+    method(request).call path, params
+  end
+
   #
   # Creates hash with HTTP Basic Auth token
   #
