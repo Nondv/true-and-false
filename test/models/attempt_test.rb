@@ -13,4 +13,9 @@ class AttemptTest < ActiveSupport::TestCase
 
     assert_equal(expected_attributes, model_attributes)
   end
+
+  test 'fixture amount' do
+    expected_amount = 5
+    assert_equal(expected_amount, Attempt.count)
+  end
 end

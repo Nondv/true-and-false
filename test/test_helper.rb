@@ -6,6 +6,10 @@ class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
+  def json_response
+    JSON.parse(response.body)
+  end
+
   def get_as(user, path, params = {})
     make_request_with_auth(:get, user, path, params)
   end
