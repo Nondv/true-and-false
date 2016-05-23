@@ -12,15 +12,19 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
     assert_response 401
   end
 
-  test 'should get index if authorized' do
-    get statements_url,
-        headers: auth_headers
+  test 'should get index if authorized as admin' do
+    get_as(@user, statements_url)
+    assert_response :forbidden
+
+    get_as(@admin, statements_url)
     assert_response :success
   end
 
-  test 'should show statement if authorized' do
-    get statement_url(@statement),
-        headers: auth_headers
+  test 'should show statement if authorized as admin' do
+    get_as(@user, statement_url(@statement))
+    assert_response :forbidden
+
+    get_as(@admin, statement_url(@statement))
     assert_response :success
   end
 
@@ -28,17 +32,17 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
     statement_params = { ru: 'test', ru_explanation: 'test', points: 0, value: true }
 
     # as plain user
-    post statements_url,
-         params: { statement: statement_params },
-         headers: auth_headers(@user)
+    post_as @user,
+            statements_url,
+            params: { statement: statement_params }
 
     assert_response 403
 
     # as admin
     assert_difference('Statement.count') do
-      post statements_url,
-           params: { statement: statement_params },
-           headers: auth_headers(@admin)
+      post_as @admin,
+              statements_url,
+              params: { statement: statement_params }
     end
 
     assert_response 201
@@ -51,15 +55,17 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
                    value: false }
 
     # try as plain user
-    patch statement_url(@statement),
-          params: { statement: attributes },
-          headers: auth_headers(@user)
+    patch_as @user,
+             statement_url(@statement),
+             params: { statement: attributes }
+
     assert_response 403
 
     # as admin
-    patch statement_url(@statement),
-          params: { statement: attributes },
-          headers: auth_headers(@admin)
+    patch_as @admin,
+             statement_url(@statement),
+             params: { statement: attributes }
+
     assert_response 200
 
     record_attributes = Statement
@@ -75,22 +81,14 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
     url = statement_url(@statement)
 
     # try as plain user
-    delete url,
-           headers: auth_headers(@user)
+    delete_as(@user, url)
     assert_response 403
 
     # try as admin
     assert_difference('Statement.count', -1) do
-      delete url,
-             headers: auth_headers(@admin)
+      delete_as(@admin, url)
     end
 
     assert_response 204
-  end
-
-  private
-
-  def auth_headers(user = @user)
-    headers_for_http_auth(user.email, '0000')
   end
 end

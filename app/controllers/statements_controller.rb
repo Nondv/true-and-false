@@ -5,18 +5,13 @@ class StatementsController < ApplicationController
   before_action :set_statement, only: [:show, :update, :destroy]
 
   # GET /statements
-  def random
-    offset = rand(Statement.count)
-    @statement = Statement
-                 .select(:id, :ru)
-                 .offset(offset)
-                 .first
+  def index
+    authorize Statement
+    @statements = Statement.all
 
-    authorize @statement
-    render json: @statement, callback: params[:callback]
+    render json: @statements,
+           callback: params[:callback]
   end
-
-  alias index random
 
   # GET /statements/1
   def show

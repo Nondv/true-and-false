@@ -2,11 +2,11 @@ class ApplicationController < ActionController::API
   include ActionController::HttpAuthentication::Basic::ControllerMethods
   include Pundit
 
-  rescue_from Pundit::NotAuthorizedError, with: :return_403
+  rescue_from Pundit::NotAuthorizedError, with: :render_403
 
   private
 
-  def return_403
+  def render_403
     render json: { message: 'Forbidden' }, status: 403
   end
 

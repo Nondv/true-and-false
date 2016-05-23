@@ -1,0 +1,24 @@
+1:
+  user: plain_user
+  statement: one
+  success: true
+
+2:
+  user: plain_user
+  statement: two
+  success: false
+
+3:
+  user: plain_user
+  statement: two
+  success: true
+
+4:
+  user: admin
+  statement: one
+  success: false
+
+5:
+  user: admin
+  statement: two
+  success: false
