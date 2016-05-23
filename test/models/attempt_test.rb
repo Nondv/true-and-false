@@ -57,4 +57,13 @@ class AttemptTest < ActiveSupport::TestCase
     assert_equal(false, a.validate)
     assert_includes(a.errors.keys, :statement)
   end
+
+  test '#game_card method' do
+    a = Attempt.create!(statement: @statement_one, user: @user)
+
+    gc = a.game_card
+    assert gc.is_a? GameCard
+    assert_equal(a.id, gc.id)
+    assert_equal(@statement_one.ru, gc.text)
+  end
 end
