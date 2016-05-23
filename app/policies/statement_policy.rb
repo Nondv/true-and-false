@@ -1,17 +1,11 @@
 class StatementPolicy < ApplicationPolicy
-  def index?
-    true
-  end
-
-  def update?
+  def access?
     user.is_a? Admin
   end
 
-  def create?
-    update?
-  end
-
-  def destroy?
-    update?
-  end
+  alias index? access?
+  alias update? access?
+  alias create? access?
+  alias destroy? access?
+  alias show? access?
 end

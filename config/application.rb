@@ -17,7 +17,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module TrueAndFalse
-  VERSION = '0.2.0-game.card'.freeze
+  VERSION = '0.2.0-game.controller'.freeze
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -28,8 +28,5 @@ module TrueAndFalse
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-
-    # return code 403 when user not authorized for something
-    config.action_dispatch.rescue_responses['Pundit::NotAuthorizedError'] = :forbidden
   end
 end
