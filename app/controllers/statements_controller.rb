@@ -7,13 +7,15 @@ class StatementsController < ApplicationController
   # GET /statements
   def random
     offset = rand(Statement.count)
-    @statement = Statement
-                 .select(:id, :ru)
-                 .offset(offset)
-                 .first
+    statement = Statement
+                .select(:id, :ru)
+                .offset(offset)
+                .first
 
-    authorize @statement
-    render json: @statement, callback: params[:callback]
+    attempt = Attempt.create!(statement: statement, user: current_user)
+
+    render json: attempt.game_card,
+           callback: params[:callback]
   end
 
   alias index random
