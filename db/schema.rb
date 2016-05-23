@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20160522211228) do
   create_table "attempts", force: :cascade do |t|
     t.integer  "user_id",      null: false
     t.integer  "statement_id", null: false
-    t.boolean  "success",      null: false
+    t.boolean  "success"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["statement_id"], name: "index_attempts_on_statement_id", using: :btree

@@ -3,7 +3,7 @@ class CreateAttempts < ActiveRecord::Migration[5.0]
     create_table :attempts do |t|
       t.integer :user_id, null: false
       t.integer :statement_id, null: false
-      t.boolean :success, null: false
+      t.boolean :success
 
       t.timestamps
     end
