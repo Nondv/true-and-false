@@ -7,4 +7,5 @@ class StatementPolicy < ApplicationPolicy
   alias update? access?
   alias create? access?
   alias destroy? access?
+  alias show? access?
 end

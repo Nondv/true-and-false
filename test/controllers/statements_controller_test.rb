@@ -12,13 +12,19 @@ class StatementsControllerTest < ActionDispatch::IntegrationTest
     assert_response 401
   end
 
-  test 'should get index if authorized' do
+  test 'should get index if authorized as admin' do
     get_as(@user, statements_url)
+    assert_response :forbidden
+
+    get_as(@admin, statements_url)
     assert_response :success
   end
 
-  test 'should show statement if authorized' do
+  test 'should show statement if authorized as admin' do
     get_as(@user, statement_url(@statement))
+    assert_response :forbidden
+
+    get_as(@admin, statement_url(@statement))
     assert_response :success
   end
 
