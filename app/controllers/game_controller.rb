@@ -17,7 +17,9 @@ class GameController < ApplicationController
 
   # POST /answer/1
   def make_a_guess
-    attempt = Attempt.find(params[:id])
+    attempt = policy_scope(Attempt).find_by_id(params[:id])
+    not_found unless attempt
+
     answer = case params.require(:answer).downcase
              when 'true' then true
              when 'false' then false

@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
 
   private
 
+  def not_found
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   def render_403
     render json: { message: 'Forbidden' }, status: 403
   end
