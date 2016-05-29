@@ -10,4 +10,10 @@ class Attempt < ApplicationRecord
   def performed?
     !success.nil?
   end
+
+  def points
+    return 0 unless performed?
+
+    success ? statement.points : (- statement.points / 2)
+  end
 end
