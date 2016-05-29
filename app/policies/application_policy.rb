@@ -6,33 +6,15 @@ class ApplicationPolicy
     @record = record
   end
 
-  def index?
-    false
+  def admin?
+    user.is_a? Admin
   end
 
-  def show?
-    scope.where(:id => record.id).exists?
-  end
-
-  def create?
-    false
-  end
-
-  def new?
-    create?
-  end
-
-  def update?
-    false
-  end
-
-  def edit?
-    update?
-  end
-
-  def destroy?
-    false
-  end
+  alias index? admin?
+  alias update? admin?
+  alias create? admin?
+  alias destroy? admin?
+  alias show? admin?
 
   def scope
     Pundit.policy_scope!(user, record.class)

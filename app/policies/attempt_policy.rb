@@ -3,20 +3,8 @@ class AttemptPolicy < ApplicationPolicy
     true
   end
 
-  def show?
-    user.is_a? Admin
-  end
-
-  def update?
-    user.is_a? Admin
-  end
-
   def create?
     true
-  end
-
-  def destroy?
-    update?
   end
 
   class Scope < Scope
