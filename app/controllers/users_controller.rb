@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user_by_http_basic_auth!
+  before_action :authenticate_user_by_http_basic_auth!, except: [:create]
   before_action :set_user, only: [:show, :update, :destroy]
 
   def index

@@ -60,20 +60,10 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_nil User.find_by_id(@user.id)
   end
 
-  test 'should create users if I am admin' do
-    attributes = { email: 'unexisted_user@test-test',
-                   password: '0000' }
-
-    post_as @user,
-            users_url,
-            params: { user: attributes }
-
-    assert_response :forbidden
-
+  test 'should create users without auth' do
     assert_difference('User.count') do
-      post_as @admin,
-              users_url,
-              params: { user: attributes }
+      post users_url, params: { user: { email: 'unexisted_user@test-test',
+                                        password: '0000' } }
     end
 
     assert_response 201
