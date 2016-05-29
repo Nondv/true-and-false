@@ -15,7 +15,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     [@admin, @user].each do |u|
       get_as u, users_me_url
       assert_response :success
-      assert_equal(json_response, u.as_json(only: [:id, :email]))
+      assert_equal(json_response, u.as_json(only: [:id, :email], methods: [:raiting]))
     end
   end
 

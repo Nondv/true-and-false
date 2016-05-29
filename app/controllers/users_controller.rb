@@ -17,6 +17,7 @@ class UsersController < ApplicationController
   def show_current_user
     render json: current_user,
            only: [:id, :email],
+           methods: [:raiting],
            callback: params[:callback]
   end
 
