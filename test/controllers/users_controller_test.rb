@@ -37,14 +37,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   test 'should update users if I am admin' do
     new_email = "updated_#{@user.email}"
+    user_params = { user: { email: new_email } }
+
     patch_as @user,
              user_url(@user),
-             params: { email: new_email }
+             params: user_params
     assert_response :forbidden
 
     patch_as @admin,
              user_url(@user),
-             params: { email: new_email }
+             params: user_params
     assert_response 200
     assert_equal(new_email, User.find(@user.id).email)
   end
