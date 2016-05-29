@@ -2,6 +2,7 @@ require 'test_helper'
 
 class GameTest < ActionDispatch::IntegrationTest
   setup do
+    @admin = users(:admin)
     @user = users(:plain_user)
   end
 
@@ -31,6 +32,17 @@ class GameTest < ActionDispatch::IntegrationTest
 
     data = json_response.symbolize_keys
     assert_equal(expected_data, data)
+  end
+
+  test "should raise RoutingError when I try to answer someone else's attempt" do
+    get_as(@admin, '/')
+    game_card = json_response.symbolize_keys
+
+    assert_raise(ActionController::RoutingError) do
+      post_as @user,
+              "/answer/#{game_card[:id]}",
+              params: { answer: true }
+    end
   end
 end
 

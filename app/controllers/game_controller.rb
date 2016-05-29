@@ -17,13 +17,15 @@ class GameController < ApplicationController
 
   # POST /answer/1
   def make_a_guess
-    attempt = Attempt.find(params[:id])
+    attempt = policy_scope(Attempt).find_by_id(params[:id])
+    not_found unless attempt
+
     answer = case params.require(:answer).downcase
              when 'true' then true
              when 'false' then false
              end
 
-    if answer.nil? || !attempt.success.nil? || attempt.user_id != current_user.id
+    if answer.nil? || attempt.performed? || attempt.user_id != current_user.id
       render_403
     else
       statement = attempt.statement
