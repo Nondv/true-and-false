@@ -28,6 +28,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def create
+    @user = User.new(permitted_attributes(User))
+    authorize @user
+
+    if @user.save
+      render json: @user, status: :created, location: @user, callback: params[:callback]
+    else
+      render json: @user.errors, status: :unprocessable_entity, callback: params[:callback]
+    end
+  end
+
   private
 
   def set_user
