@@ -3,4 +3,10 @@ class UsersController < ApplicationController
 
   def index
   end
+
+  def show_current_user
+    render json: current_user,
+           only: [:id, :email],
+           callback: params[:callback]
+  end
 end
