@@ -8,6 +8,14 @@ class UsersController < ApplicationController
            callback: params[:callback]
   end
 
+  def show
+    @user = User.find(params[:id])
+    authorize @user
+
+    render json: @user,
+           callback: params[:callback]
+  end
+
   def show_current_user
     render json: current_user,
            only: [:id, :email],
