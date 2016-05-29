@@ -6,4 +6,8 @@ class Attempt < ApplicationRecord
     raise 'not persisted' unless persisted?
     GameCard.new(self, statement)
   end
+
+  def performed?
+    !success.nil?
+  end
 end

@@ -23,7 +23,7 @@ class GameController < ApplicationController
              when 'false' then false
              end
 
-    if answer.nil? || !attempt.success.nil? || attempt.user_id != current_user.id
+    if answer.nil? || attempt.performed? || attempt.user_id != current_user.id
       render_403
     else
       statement = attempt.statement
