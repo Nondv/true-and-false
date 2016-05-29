@@ -6,8 +6,10 @@ class ApplicationController < ActionController::API
 
   private
 
+  attr_reader :current_user
+
   def not_found
-    raise ActionController::RoutingError.new('Not Found')
+    raise(ActionController::RoutingError, 'Not Found')
   end
 
   def render_403
@@ -22,9 +24,5 @@ class ApplicationController < ActionController::API
       sign_in :user, resource
       @current_user = resource
     end
-  end
-
-  def current_user
-    @current_user
   end
 end
