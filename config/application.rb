@@ -17,7 +17,7 @@ require "rails/test_unit/railtie"
 Bundler.require(*Rails.groups)
 
 module TrueAndFalse
-  VERSION = '1.1.0-user.raiting'.freeze
+  VERSION = '1.1.0'.freeze
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
